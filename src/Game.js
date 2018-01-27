@@ -12,13 +12,21 @@ class Game
     
   }
 
+  loadAssets()
+  {
+    gameNs.game.soundManager = new SoundManager();
+    gameNs.game.soundManager.init();
+
+    gameNs.game.jsonLoader = new JsonLoader();
+    gameNs.game.jsonLoader.loadJSON("assets");
+  }
+
   /**
   *   Initalises the canvas and set the current render scene.
   */
   init()
   {
     console.log("Initalising Game");
-    gameNs.game.loaded = true;
 
     //  Initialise the canvas
     gameNs.game.canvas = document.createElement("canvas");
@@ -37,6 +45,7 @@ class Game
     //  Initialise game objects.
     gameNs.game.sceneManager = new SceneManager(gameNs.game.ctx, gameNs.game.canvas);
     gameNs.game.sceneManager.addScene(new MenuScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new GameScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.goToScene("Menu");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
   }
@@ -46,7 +55,7 @@ class Game
   */
   update()
   {
-    if ( gameNs.game.loaded === true )
+    if ( gameNs.game.jsonLoader.getLoaded() === true )
     {
       var now = Date.now();
       var deltaTime = (now - gameNs.game.previousTime);
@@ -68,6 +77,7 @@ class Game
   draw()
   {
     this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
+    this.ctx.drawImage(this.backgroundImage, 0, 0, 960, 1800);
     this.sceneManager.renderCurrentScene(this.ctx);
   }
 }

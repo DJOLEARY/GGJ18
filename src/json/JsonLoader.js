@@ -5,39 +5,32 @@ class JsonLoader
   */
   constructor()
   {
-    JsonLoader.splash = null;
-    JsonLoader.sprite = null;
-    JsonLoader.loaded = false;
+    this.loaded = false;
+    this.numOfSounds = 12;
   }
 
   loadJSON(url)
   {
     var request = new XMLHttpRequest();
-    request.open("GET", "assets/Json/" + url + ".json", true);
+    request.open("GET", "src/json/" + url + ".json", true);
     request.responseType = 'json';
     request.send();
 
     request.onload = function()
     {
-      JsonLoader.loaded = true;
+      gameNs.game.jsonLoader.loaded = true;
       var assets = request.response;
 
       //  Images.
-      JsonLoader.splash = assets.images[0];
-      JsonLoader.sprite = assets.images[1];
+      gameNs.game.backgroundImage = new Image();
+      gameNs.game.backgroundImage.src = assets.images[0].path;
 
       //  Sounds.
+      for (var i = 0; i < this.numOfSounds; i++)
+      {
+        gameNs.game.soundManager.loadSoundFile(assets.music[i].name, assets.music[i].path);
+      }
     }
-  }
-
-  getSplash()
-  {
-    return this.splash.path;
-  }
-
-  getSprite()
-  {
-    return this.sprite.path;
   }
 
   getLoaded()
