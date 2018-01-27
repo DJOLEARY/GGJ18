@@ -31,7 +31,10 @@ class Game
     message.type = "join";
     message.data = "hello";
 
-    var ws = new WebSocket("ws://149.153.106.121:8080/wstest");
+    //  Dj's Ip
+    var ws = new WebSocket("ws://149.153.106.122:8080/wstest");
+    //  Darren's Ip
+    //var ws = new WebSocket("ws://149.153.106.121:8080/wstest");
 
     console.log("Initalising Game");
 
@@ -52,7 +55,8 @@ class Game
     //  Initialise game objects.
     gameNs.game.sceneManager = new SceneManager(gameNs.game.ctx, gameNs.game.canvas);
     gameNs.game.sceneManager.addScene(new MenuScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.addScene(new GameScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new GameScene("Game", gameNs.game.touch, gameNs.game.sceneManager, gameNs.game.soundManager));
+    gameNs.game.sceneManager.addScene(new CharadesGameScene("Game", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.goToScene("Menu");

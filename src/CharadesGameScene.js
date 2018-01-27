@@ -1,9 +1,9 @@
 /**
   Child class of Screen, overrides the render function
 */
-class GameScene extends Scene
+class CharadesGameScene extends Scene
 {
-  constructor(screenName, touch, sceneManager, soundManager)
+  constructor(screenName, touch, sceneManager)
   {
     super(screenName);
     this.touch = touch;
