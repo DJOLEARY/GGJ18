@@ -9,7 +9,7 @@ class MenuScene extends Scene
     this.touch = touch;
     this.sceneManager = sceneManager;
 
-    this.playButton = new Button(this.touch, 200, 70, 570, 50, "Play", {
+    this.playButton = new Button(this.touch, 200, 70, 570, 100, "Play", {
                'default': {
                  top: '#1879BD',
                  bottom: '#084D79'
@@ -18,9 +18,9 @@ class MenuScene extends Scene
                  top: '#EB7723',
                  bottom: '#A80000'
                }
-             }, "20");
+             }, "40");
 
-      this.creditsButtons = new Button(this.touch, 200, 280, 570, 50, "Credits", {
+      this.creditsButtons = new Button(this.touch, 200, 280, 570, 100, "Credits", {
                  'default': {
                    top: '#1879BD',
                    bottom: '#084D79'
@@ -29,7 +29,7 @@ class MenuScene extends Scene
                    top: '#EB7723',
                    bottom: '#A80000'
                  }
-               }, "20");
+               }, "40");
   }
 
   update(deltaTime)
@@ -40,12 +40,12 @@ class MenuScene extends Scene
     if(this.playButton.getIsClicked() === true)
     {
       this.playButton.reset();
-      this.sceneManager.goToScene("Playing");
+      //this.sceneManager.goToScene("Playing");
     }
     else if(this.creditsButtons.getIsClicked() === true)
     {
       this.creditsButtons.reset();
-      this.sceneManager.goToScene("Credits");
+      //this.sceneManager.goToScene("Credits");
     }
   }
 
