@@ -53,7 +53,8 @@ class Game
     gameNs.game.sceneManager.addScene(new GameSelectScene("GameSelect", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new MusicGameScene("MusicGame", gameNs.game.touch, gameNs.game.sceneManager, gameNs.game.soundManager));
     gameNs.game.sceneManager.addScene(new CharadesGameScene("CharadesGame", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.addScene(new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.lobbyScene = new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager)
+    gameNs.game.sceneManager.addScene(gameNs.game.lobbyScene);
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.goToScene("Menu");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
@@ -61,7 +62,8 @@ class Game
 
   handleMessage(evt)
   {
-    //called when the client receives a message
+    // Called when the client receives a message
+    gameNs.game.lobbyScene.numOfPlayersConnected = evt.data;
     console.log("Hello i have the number: " + JSON.stringify(evt.type));
     console.log("Hello i have the number: " + JSON.stringify(evt.data));
   }
