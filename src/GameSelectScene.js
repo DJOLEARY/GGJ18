@@ -41,12 +41,28 @@ class GameSelectScene extends Scene
     {
       this.musicButton.reset();
       gameNs.game.gamemode = "music";
+
+      var message = {};
+      message.gameType = "join_music_game";
+      message.data = "music_game_hello!:)";
+
+      // Join server here
+      gameNs.game.ws.send(JSON.stringify(message));
+
       this.sceneManager.goToScene("Lobby");
     }
     else if(this.charadesButtons.getIsClicked() === true)
     {
       this.charadesButtons.reset();
       gameNs.game.gamemode = "charades";
+
+      var message = {};
+      message.gameType = "join_charades_game";
+      message.data = "charades_game_hello!:)";
+
+      // Join server here
+      gameNs.game.ws.send(JSON.stringify(message));
+
       this.sceneManager.goToScene("Lobby");
     }
   }
