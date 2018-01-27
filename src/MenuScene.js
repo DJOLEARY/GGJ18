@@ -40,6 +40,16 @@ class MenuScene extends Scene
     if(this.joinButton.getIsClicked() === true)
     {
       this.joinButton.reset();
+
+      var message = {};
+      message.type = "join";
+      message.data = "hello";
+
+      // Join server here
+      gameNs.game.ws.send(JSON.stringify(message.type));
+
+      console.log("onopen called");
+
       this.sceneManager.goToScene("Lobby");
     }
     else if(this.creditsButtons.getIsClicked() === true)

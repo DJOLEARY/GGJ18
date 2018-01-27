@@ -27,11 +27,8 @@ class Game
   init()
   { 
     console.log("Init server stuff");
-    var message = {};
-    message.type = "join";
-    message.data = "hello";
 
-    var ws = new WebSocket("ws://149.153.106.121:8080/wstest");
+    gameNs.game.ws = new WebSocket("ws://149.153.106.121:8080/wstest");
 
     console.log("Initalising Game");
 
@@ -49,24 +46,24 @@ class Game
     document.addEventListener("touchmove", gameNs.game.touch.onTouchMove.bind(null, gameNs.game.touch), {passive: false});
     document.addEventListener("touchend", gameNs.game.touch.onTouchEnd.bind(null, gameNs.game.touch), {passive: false});
 
+    gameNs.game.ws.addEventListener('message',  gameNs.game.handleMessage);
+
+
     //  Initialise game objects.
     gameNs.game.sceneManager = new SceneManager(gameNs.game.ctx, gameNs.game.canvas);
     gameNs.game.sceneManager.addScene(new MenuScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.addScene(new GameScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new GameScene(" ", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.goToScene("Menu");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
+  }
 
-    //called when the websocket is opened
-    ws.onopen = function() {
-        ws.send(JSON.stringify(message.type));
-    };
-
+  handleMessage()
+  {
     //called when the client receives a message
-    ws.onmessage = function (evt) {
-        if(evt.type == "join")
-          console.log("Hello i have the number: " + JSON.stringify(evt.data));
+    gameNs.game.ws.onmessage = function (evt) {
+      console.log("Hello i have the number: " + JSON.stringify(evt.data));
     };
   }
 

@@ -20,14 +20,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         return True
 
     def open(self):
-        print("connection opened")
-        print("Remote IP: ", self.request.remote_ip)
-        print("Port", self.stream.socket.getpeername()[1])
-        player_address = str(self.request.remote_ip)  + ':' + str(self.stream.socket.getpeername()[1])
-        session[player_address] = self
-        print("------------------");
-        print(session);
-        print("------------------");
+        #player_address = str(self.request.remote_ip)  + ':' + str(self.stream.socket.getpeername()[1])
+        #session[player_address] = self
+        pass
 
     def send_to_other_player(self, message):
         #iterate through the connections
@@ -38,17 +33,29 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
     def joinGame(self):
         #iterate through the connections
-        for key, value in session.items():
-            #if the key is not the socket the message came in on - what does that mean?
-            if(key == self.get_player_address()):
-                global nextNumberToAssign
-                value.write_message(str(nextNumberToAssign))    
-                nextNumberToAssign = nextNumberToAssign + 1
+        print("-----------")
+        if len(session) < 8:
+            player_address = str(self.request.remote_ip)  + ':' + str(self.stream.socket.getpeername()[1])
+            session[player_address] = self
+            
+            for key, value in session.items():
+                #if the key is not the socket the message came in on - what does that mean?
+                if(key == self.get_player_address()):
+                    global nextNumberToAssign
+                    value.write_message(str(nextNumberToAssign))    
+                    nextNumberToAssign = nextNumberToAssign + 1
+                
+            print("Players so far " + str(nextNumberToAssign - 1))
+            print("-----------")
+        else:
+            print("No more players allowed to join!!! :( ")
 
     def on_message(self, message):
+        print("on_message!!!!!!")
         # json.loads() returns a dict
         msg = json.loads(message)
         if msg == "join":
+            print(msg)
             self.joinGame()
         else:
             self.send_to_other_player(message)
