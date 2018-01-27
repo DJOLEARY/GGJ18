@@ -1,7 +1,7 @@
 /**
   Child class of Screen, overrides the render function
 */
-class MenuScene extends Scene
+class GameSelectScene extends Scene
 {
   constructor(screenName, touch, sceneManager)
   {
@@ -9,7 +9,7 @@ class MenuScene extends Scene
     this.touch = touch;
     this.sceneManager = sceneManager;
 
-    this.joinButton = new Button(this.touch, 200, 70, 570, 100, "Join", {
+    this.musicButton = new Button(this.touch, 200, 70, 570, 100, "Music", {
                'default': {
                  top: '#1879BD',
                  bottom: '#084D79'
@@ -20,7 +20,7 @@ class MenuScene extends Scene
                }
              }, "40");
 
-      this.creditsButtons = new Button(this.touch, 200, 280, 570, 100, "Credits", {
+      this.charadesButtons = new Button(this.touch, 200, 280, 570, 100, "Charades", {
                  'default': {
                    top: '#1879BD',
                    bottom: '#084D79'
@@ -34,18 +34,20 @@ class MenuScene extends Scene
 
   update(deltaTime)
   {
-    this.joinButton.update();
-    this.creditsButtons.update();
+    this.musicButton.update();
+    this.charadesButtons.update();
 
-    if(this.joinButton.getIsClicked() === true)
+    if(this.musicButton.getIsClicked() === true)
     {
-      this.joinButton.reset();
-      this.sceneManager.goToScene("GameSelect");
+      this.musicButton.reset();
+      gameNs.game.gamemode = "music";
+      this.sceneManager.goToScene("Lobby");
     }
-    else if(this.creditsButtons.getIsClicked() === true)
+    else if(this.charadesButtons.getIsClicked() === true)
     {
-      this.creditsButtons.reset();
-      this.sceneManager.goToScene("Credits");
+      this.charadesButtons.reset();
+      gameNs.game.gamemode = "charades";
+      this.sceneManager.goToScene("Lobby");
     }
   }
 
@@ -53,7 +55,7 @@ class MenuScene extends Scene
   {
     document.body.style.backgroundColor = "grey";
 
-    this.joinButton.render(ctx);
-    this.creditsButtons.render(ctx);
+    this.musicButton.render(ctx);
+    this.charadesButtons.render(ctx);
   }
 }
