@@ -15,7 +15,7 @@ class SceneManager
     this.scenelist = [];
     this.index = -1;
     this.backgroundImage = new Image();
-    this.backgroundImage.src = 'Assets/background.png';
+    this.backgroundImage.src = 'assets/background.jpg';
   }
 
   /**
@@ -76,6 +76,7 @@ class SceneManager
   */
   renderCurrentScene()
   {
+    this.ctx.drawImage(this.backgroundImage, 0, 0, 960, 1800);
     this.currentScene.render(this.ctx);
   }
 }
