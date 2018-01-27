@@ -28,6 +28,9 @@ class Game
   { 
     console.log("Init server stuff");
 
+    //  Dj's Ip
+    //gameNs.game.ws = new WebSocket("ws://149.153.106.122:8080/wstest");
+    //  Darren's Ip
     gameNs.game.ws = new WebSocket("ws://149.153.106.121:8080/wstest");
 
     console.log("Initalising Game");
@@ -52,7 +55,9 @@ class Game
     //  Initialise game objects.
     gameNs.game.sceneManager = new SceneManager(gameNs.game.ctx, gameNs.game.canvas);
     gameNs.game.sceneManager.addScene(new MenuScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.addScene(new GameScene(" ", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new GameSelectScene("GameSelect", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new MusicGameScene("MusicGame", gameNs.game.touch, gameNs.game.sceneManager, gameNs.game.soundManager));
+    gameNs.game.sceneManager.addScene(new CharadesGameScene("CharadesGame", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.goToScene("Menu");
