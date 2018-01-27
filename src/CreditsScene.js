@@ -10,7 +10,7 @@ class CreditsScene extends Scene
     this.touch = touch;
     this.sceneManager  = sceneManager;
 
-    this.backButton = new Button(this.touch, 440, 320, 100, 50, "Back", {
+    this.backButton = new Button(this.touch, 320, 620, 300, 120, "Back", {
                'default': {
                  top: '#1879BD',
                  bottom: '#084D79'
@@ -19,7 +19,7 @@ class CreditsScene extends Scene
                  top: '#EB7723',
                  bottom: '#A80000'
                }
-             }, "10");
+             }, "40");
   }
 
   update(deltaTime)
@@ -38,9 +38,9 @@ class CreditsScene extends Scene
     this.backButton.render(ctx);
 
     ctx.fillStyle="black";
-    ctx.font="bold 50px Georgia";
-    ctx.fillText("Darren Sweeney", 290, 150);
-    ctx.fillText("D.J. O' Leary", 340, 250);
-    ctx.fillText("David Scott", 290, 350);
+    ctx.font="bold 80px Georgia";
+    ctx.fillText("Darren Sweeney", 150, 250);
+    ctx.fillText("D.J. O' Leary", 220, 380);
+    ctx.fillText("David Scott", 240, 510);
   }
 }

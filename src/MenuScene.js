@@ -45,7 +45,7 @@ class MenuScene extends Scene
     else if(this.creditsButtons.getIsClicked() === true)
     {
       this.creditsButtons.reset();
-      //this.sceneManager.goToScene("Credits");
+      this.sceneManager.goToScene("Credits");
     }
   }
 
