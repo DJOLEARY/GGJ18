@@ -7,12 +7,8 @@ WAITING_FOR_PLAYERS = 0
 GAME_IN_PROGRESS = 1
 game_state = WAITING_FOR_PLAYERS
 
-# tring to get this to work
 nextNumberToAssign = 1
-
-# nextNumberToAssign = 1
-# When player opens a browser assign them a number and increment the nextNumberToAssign
-# Just have 4 people for now
+spacesInGame = 8
 
 class WSHandler(tornado.websocket.WebSocketHandler):
 
@@ -42,21 +38,28 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 #if the key is not the socket the message came in on - what does that mean?
                 if(key == self.get_player_address()):
                     global nextNumberToAssign
+                    global spacesInGame
+                    joinGameInfo = {}
+                    session[player_address] = self
                     value.write_message(str(nextNumberToAssign))    
                     nextNumberToAssign = nextNumberToAssign + 1
+                    spacesInGame = spacesInGame - 1
                 
             print("Players so far " + str(nextNumberToAssign - 1))
+            print("Spaces in game left " + str(spacesInGame))
             print("-----------")
         else:
             print("No more players allowed to join!!! :( ")
 
     def on_message(self, message):
-        print("on_message!!!!!!")
         # json.loads() returns a dict
         msg = json.loads(message)
-        if msg == "join":
-            print(msg)
-            self.joinGame()
+        if "gameType" in msg:
+            if msg["gameType"] == "join_music_game":
+                self.joinGame()
+            # @todo(darren): Make it work for the shitty charades game! -_-
+            #else if msg["gameType"] == "join_charades_game":
+                #print("trying to join the charades game?! Yeah not ready there bud")
         else:
             self.send_to_other_player(message)
 

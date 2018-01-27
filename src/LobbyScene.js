@@ -14,6 +14,7 @@ class LobbyScene extends Scene
     if (this.numOfPlayersNeeded === 0 && gameNs.game.gamemode === "music")
     {
       this.sceneManager.goToScene("MusicGame");
+      
     }
     else if (this.numOfPlayersNeeded === 0 && gameNs.game.gamemode === "charades")
     {

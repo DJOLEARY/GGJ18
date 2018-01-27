@@ -26,14 +26,10 @@ class Game
   */
   init()
   { 
-    console.log("Init server stuff");
-
-    //  Dj's Ip
+    // Dj's Ip
     //gameNs.game.ws = new WebSocket("ws://149.153.106.122:8080/wstest");
-    //  Darren's Ip
+    // Darren's Ip
     gameNs.game.ws = new WebSocket("ws://149.153.106.121:8080/wstest");
-
-    console.log("Initalising Game");
 
     //  Initialise the canvas
     gameNs.game.canvas = document.createElement("canvas");
@@ -51,7 +47,6 @@ class Game
 
     gameNs.game.ws.addEventListener('message',  gameNs.game.handleMessage);
 
-
     //  Initialise game objects.
     gameNs.game.sceneManager = new SceneManager(gameNs.game.ctx, gameNs.game.canvas);
     gameNs.game.sceneManager.addScene(new MenuScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
@@ -64,12 +59,11 @@ class Game
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
   }
 
-  handleMessage()
+  handleMessage(evt)
   {
     //called when the client receives a message
-    gameNs.game.ws.onmessage = function (evt) {
-      console.log("Hello i have the number: " + JSON.stringify(evt.data));
-    };
+    console.log("Hello i have the number: " + JSON.stringify(evt.type));
+    console.log("Hello i have the number: " + JSON.stringify(evt.data));
   }
 
   /**

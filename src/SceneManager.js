@@ -36,7 +36,6 @@ class SceneManager
       this.currentScene = this.sceneDictionary[title];
       // Gets the current index using the title as the key.
       this.index = Object.keys(this.sceneDictionary).indexOf(title);
-      console.log("Index: " + this.index);
       this.currentScene.start();
       this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
   }

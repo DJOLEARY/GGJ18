@@ -10,7 +10,6 @@ class Scene
   constructor(sceneName)
   {
     this.title = sceneName;
-    console.log("constructor scene called");
   }
 
   update(deltaTime)
