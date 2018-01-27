@@ -6,7 +6,7 @@ class LobbyScene extends Scene
     this.touch = touch;
     this.sceneManager = sceneManager;
 
-    this.numOfPlayersNeeded = 8;
+    this.numOfPlayersNeeded = 0;
   }
 
   update(deltaTime)
