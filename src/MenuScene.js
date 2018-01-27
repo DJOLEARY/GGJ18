@@ -9,7 +9,7 @@ class MenuScene extends Scene
     this.touch = touch;
     this.sceneManager = sceneManager;
 
-    this.playButton = new Button(this.touch, 200, 70, 570, 100, "Play", {
+    this.joinButton = new Button(this.touch, 200, 70, 570, 100, "Join", {
                'default': {
                  top: '#1879BD',
                  bottom: '#084D79'
@@ -34,18 +34,18 @@ class MenuScene extends Scene
 
   update(deltaTime)
   {
-    this.playButton.update();
+    this.joinButton.update();
     this.creditsButtons.update();
 
-    if(this.playButton.getIsClicked() === true)
+    if(this.joinButton.getIsClicked() === true)
     {
-      this.playButton.reset();
-      //this.sceneManager.goToScene("Playing");
+      this.joinButton.reset();
+      this.sceneManager.goToScene("Lobby");
     }
     else if(this.creditsButtons.getIsClicked() === true)
     {
       this.creditsButtons.reset();
-      //this.sceneManager.goToScene("Credits");
+      this.sceneManager.goToScene("Credits");
     }
   }
 
@@ -53,7 +53,7 @@ class MenuScene extends Scene
   {
     document.body.style.backgroundColor = "grey";
 
-    this.playButton.render(ctx);
+    this.joinButton.render(ctx);
     this.creditsButtons.render(ctx);
   }
 }

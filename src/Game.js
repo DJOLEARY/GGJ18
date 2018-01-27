@@ -25,7 +25,14 @@ class Game
   *   Initalises the canvas and set the current render scene.
   */
   init()
-  {
+  { 
+    console.log("Init server stuff");
+    var message = {};
+    message.type = "join";
+    message.data = "hello";
+
+    var ws = new WebSocket("ws://149.153.106.121:8080/wstest");
+
     console.log("Initalising Game");
 
     //  Initialise the canvas
@@ -46,8 +53,21 @@ class Game
     gameNs.game.sceneManager = new SceneManager(gameNs.game.ctx, gameNs.game.canvas);
     gameNs.game.sceneManager.addScene(new MenuScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new GameScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.goToScene("Menu");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
+
+    //called when the websocket is opened
+    ws.onopen = function() {
+        ws.send(JSON.stringify(message.type));
+    };
+
+    //called when the client receives a message
+    ws.onmessage = function (evt) {
+        if(evt.type == "join")
+          console.log("Hello i have the number: " + JSON.stringify(evt.data));
+    };
   }
 
   /**
