@@ -4,7 +4,7 @@ function main()
     message.type = "test"
     message.data = "hello"
 
-    var ws = new WebSocket("ws://localhost:8080/wstest");
+    var ws = new WebSocket("ws:http://127.0.0.1:8080/wstest");
     //called when the websocket is opened
     ws.onopen = function() {
         ws.send(JSON.stringify(message));
