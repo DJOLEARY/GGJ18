@@ -10,7 +10,6 @@ class MusicGameScene extends Scene
     this.sceneManager = sceneManager;
     this.player = player;
     this.player = 1;
-    this.currentPlayNumber = 0;
     this.numOfPeople = numOfPeople;
     this.selectedSongs = {};   
     this.currentRound = 1;
@@ -140,6 +139,7 @@ class MusicGameScene extends Scene
     if (this.countdownCalled === false)
     {
       this.countdown();
+      this.countdownTillEnd();
       this.countdownCalled = true;
     }
 
@@ -222,6 +222,18 @@ class MusicGameScene extends Scene
   }
 
   countdown()
+  {
+    // Update the count down every 1 second
+    var x = setInterval(function() 
+    {
+      if (gameNs.game.musicCountdownTimer > 0)
+      {
+        gameNs.game.musicCountdownTimer--;
+      }
+    }, 1000);
+  }
+
+  countdownTillEnd()
   {
     // Update the count down every 1 second
     var x = setInterval(function() 

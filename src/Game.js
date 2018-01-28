@@ -58,9 +58,11 @@ class Game
     gameNs.game.lobbyScene = new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager)
     gameNs.game.sceneManager.addScene(gameNs.game.lobbyScene);
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.goToScene("Menu");
+    gameNs.game.sceneManager.goToScene("GameSelect");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
-    gameNs.game.playerNumber = -1;
+    // @todo(darren): This is for testing, playernum should be -1 and remove numofspaces
+    gameNs.game.playerNumber = 0;
+    gameNs.game.lobbyScene.numOfSpacesLeft = 0
   }
 
   handleMessage(evt)
@@ -79,7 +81,7 @@ class Game
 
     if(eventDict["event_type"] == "lobby_game_info")
     {
-      gameNs.game.lobbyScene.numOfSpacesLeft = eventDict["spaces_left"];
+      gameNs.game.lobbyScene.numOfSpacesLeft = 0;//eventDict["spaces_left"];
       console.log("Hello there is this many space left: " + eventDict["spaces_left"]);
     }
   }
