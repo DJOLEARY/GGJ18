@@ -55,7 +55,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                     spacesInGame = spacesInGame - 1
                     lobbyGameInfo = {}
                     lobbyGameInfo["event_type"] = "lobby_game_info"
-                    lobbyGameInfo["spaces_left"] = nextNumberToAssign
+                    lobbyGameInfo["spaces_left"] = spacesInGame
                     self.send_to_all_player(lobbyGameInfo)
                 
             print("Players so far " + str(nextNumberToAssign - 1))
