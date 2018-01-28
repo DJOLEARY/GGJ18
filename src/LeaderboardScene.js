@@ -23,6 +23,8 @@ class LeaderboardScene extends Scene
                                     bottom: '#A80000'
                                 }
     }                           , "40");
+
+    gameNs.game.playerScore = Math.floor(Math.random() * 5000) + 1;
   }
 
   update(deltaTime)
@@ -40,18 +42,27 @@ class LeaderboardScene extends Scene
   {
     this.doneButton.render(ctx);
 
-    for (var i = 1; i < 9; i++)
-    {
-        ctx.beginPath();
-        ctx.fillStyle = this.colours[i];
-        ctx.fillRect(100, 100 * i, 80, 80);
-    }
+    ctx.font="bold 80px Georgia";
+    ctx.fillStyle="black";
+    ctx.fillText("Your Score: " + gameNs.game.playerScore, 100, 200);
 
-    for (var i = 1; i < 9; i++)
-    {
-        ctx.beginPath();
-        ctx.fillStyle = this.colours[i];
-        ctx.fillRect(450, 100 * i, 80, 80);
-    }
+    ctx.font="bold 50px Georgia";
+    ctx.fillStyle="black";
+    ctx.fillText("Decide who won amongst yourself", 50, 500);
+    ctx.fillText("because coding is hard", 200, 550);
+
+    // for (var i = 1; i < 9; i++)
+    // {
+    //     ctx.beginPath();
+    //     ctx.fillStyle = this.colours[i];
+    //     ctx.fillRect(100, 100 * i, 80, 80);
+    // }
+
+    // for (var i = 1; i < 9; i++)
+    // {
+    //     ctx.beginPath();
+    //     ctx.fillStyle = this.colours[i];
+    //     ctx.fillRect(450, 100 * i, 80, 80);
+    // }
   }
 }

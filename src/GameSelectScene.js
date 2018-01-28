@@ -41,6 +41,7 @@ class GameSelectScene extends Scene
     {
       this.musicButton.reset();
       gameNs.game.gamemode = "music";
+      //gameNs.game.playerScore = Math.floor(Math.random() * 5000) + 1;
 
       var message = {};
       message.gameType = "join_music_game";

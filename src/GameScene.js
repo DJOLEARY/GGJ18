@@ -298,7 +298,23 @@ class GameScene extends Scene
       {
         if(gameNs.game.gamemode === "music")
         {
-          gameNs.game.soundManager.playSound(gameNs.game.songs[gameNs.game.assignedGameNum], false, 2);
+          // Find the song based on
+          if(gameNs.game.playerNumber == 1 || gameNs.game.playerNumber == 2)
+          {
+            gameNs.game.soundManager.playSound(gameNs.game.songs[1], false, 2);
+          }
+          else if(gameNs.game.playerNumber == 3 || gameNs.game.playerNumber == 4)
+          {
+            gameNs.game.soundManager.playSound(gameNs.game.songs[2], false, 2);
+          }
+          else if(gameNs.game.playerNumber == 5 || gameNs.game.playerNumber == 6)
+          {
+            gameNs.game.soundManager.playSound(gameNs.game.songs[3], false, 2);
+          }
+          else if(gameNs.game.playerNumber == 7 || gameNs.game.playerNumber == 8)
+          {
+            gameNs.game.soundManager.playSound(gameNs.game.songs[4], false, 2);
+          }
         }
 
         gameNs.game.countdownTimer--;
