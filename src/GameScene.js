@@ -12,11 +12,9 @@ class GameScene extends Scene
     this.timeLeft = 30;
     this.buttons = [];
     this.choosenPlayer = false;
+    this.init = false;
 
-    this.playerPair1 = [];
-    this.playerPair2 = [];
-    this.playerPair3 = [];
-    this.playerPair4 = [];
+    this.playerPairs  = {};
 
     gameNs.game.countdownTimer = 3;
     gameNs.game.timeLeft = 30;
@@ -131,32 +129,6 @@ class GameScene extends Scene
 
     this.buttons = [this.colorButtonOne, this.colorButtonTwo, this.colorButtonThree, this.colorButtonFour,
                 this.colorButtonFive, this.colorButtonSix, this.colorButtonSeven, this.colorButtonEight];
-  
-    if (gameNs.game.playerNumber === 1)
-    {
-      gameNs.game.numbersSelected = [];
-      var i = 0;
-
-      while (gameNs.game.numbersSelected < 4)
-      {
-        var randomNum = Math.floor(Math.random * 25) + 1;
-        if (gameNs.game.numbersSelected.indexOf(randomNum) === -1)
-        {
-          gameNs.game.numbersSelected.push(randomNum);
-          i++;
-        }
-      }
-
-      var players = [1, 2, 3, 4, 5, 6, 7, 8];
-
-      players = this.shuffle(players);
-
-      this.playerPair1 = [players[0], players[1]];
-      this.playerPair2 = [players[3], players[4]];
-      this.playerPair3 = [players[5], players[6]];
-      this.playerPair4 = [players[7], players[8]];
-
-    }
   }
 
   update(deltaTime)
@@ -201,6 +173,36 @@ class GameScene extends Scene
           }
         }
       }
+    }
+
+    if (gameNs.game.playerNumber === 1 && this.init === false)
+    {
+      this.init === true;
+      gameNs.game.numbersSelected = [];
+      var i = 0;
+
+      while (gameNs.game.numbersSelected < 4)
+      {
+        var randomNum = Math.floor(Math.random * 25) + 1;
+        if (gameNs.game.numbersSelected.indexOf(randomNum) === -1)
+        {
+          gameNs.game.numbersSelected.push(randomNum);
+          i++;
+        }
+      }
+
+      var players = [1, 2, 3, 4, 5, 6, 7, 8];
+
+      players = this.shuffle(players);
+
+      this.playerPairs[players[0]] = gameNs.game.numbersSelected[0];
+      this.playerPairs[players[1]] = gameNs.game.numbersSelected[0];
+      this.playerPairs[players[2]] = gameNs.game.numbersSelected[1];
+      this.playerPairs[players[3]] = gameNs.game.numbersSelected[1];
+      this.playerPairs[players[4]] = gameNs.game.numbersSelected[2];
+      this.playerPairs[players[5]] = gameNs.game.numbersSelected[2];
+      this.playerPairs[players[6]] = gameNs.game.numbersSelected[3];
+      this.playerPairs[players[7]] = gameNs.game.numbersSelected[3];
     }
   }
 
