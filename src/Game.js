@@ -26,12 +26,9 @@ class Game
   */
   init()
   { 
-    // Dj's Ip
-    //gameNs.game.ws = new WebSocket("ws://149.153.106.122:8080/wstest");
-    // Darren's Ip college
+    //  Change the ip address here to your computers ip
+    //                                   <------------->
     gameNs.game.ws = new WebSocket("ws://149.153.106.121:8080/wstest");
-    // Darren's Ip home
-    //gameNs.game.ws = new WebSocket("ws://192.168.1.8:8080/wstest");
 
     //  Initialise the canvas
     gameNs.game.canvas = document.createElement("canvas");
@@ -63,6 +60,7 @@ class Game
 
     // @todo(darren): This is for testing, playernum should be -1 and remove numofspaces
     gameNs.game.playerNumber = 0;
+    gameNs.game.lobbyScene.numOfSpacesLeft = 0;
 
     // More info, and shit yey!
     //gameNs.game.playerScore = 0;
