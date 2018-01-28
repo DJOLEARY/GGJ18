@@ -58,16 +58,28 @@ class Game
     gameNs.game.lobbyScene = new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager)
     gameNs.game.sceneManager.addScene(gameNs.game.lobbyScene);
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.goToScene("MusicGame");
+    gameNs.game.sceneManager.goToScene("Menu");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
   }
 
   handleMessage(evt)
   {
-    // Called when the client receives a message
-    gameNs.game.lobbyScene.numOfPlayersConnected = evt.data;
-    console.log("Hello i have the number: " + JSON.stringify(evt.type));
-    console.log("Hello i have the number: " + JSON.stringify(evt.data));
+    // Parse it twice, it's 3:12 am and i don't really give a fuck, this lanague is shit
+    var eventJSON = JSON.stringify(evt.data)
+    var eventJSON_2 = JSON.parse(eventJSON)
+    var eventDict = JSON.parse(eventJSON_2)
+    console.log(eventDict)
+    if(eventDict["event_type"] == "join_game_info")
+    {
+      gameNs.game.lobbyScene.numOfPlayersConnected = eventDict["players_number"];
+      console.log("Hello i have the number: " + eventDict["players_number"]);
+    }
+
+    if(eventDict["event_type"] == "lobby_game_info")
+    {
+      gameNs.game.lobbyScene.numOfPlayersNeeded = eventDict["spaces_left"];
+      console.log("Hello there is this many space left: " + eventDict["spaces_left"]);
+    }
   }
 
   /**

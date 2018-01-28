@@ -20,7 +20,14 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         #session[player_address] = self
         pass
 
+    def send_to_all_player(self, message):
+        print("send_to_all_player")
+        #iterate through the connections
+        for key, value in session.items():
+            value.write_message(message);
+
     def send_to_other_player(self, message):
+        print("send_to_other_player")
         #iterate through the connections
         for key, value in session.items():
             #if the key is not the socket the message came in on - what does that mean?
@@ -40,10 +47,16 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                     global nextNumberToAssign
                     global spacesInGame
                     joinGameInfo = {}
+                    joinGameInfo["event_type"] = "join_game_info"
+                    joinGameInfo["players_number"] = nextNumberToAssign
                     session[player_address] = self
-                    value.write_message(str(nextNumberToAssign))    
+                    value.write_message(joinGameInfo) 
                     nextNumberToAssign = nextNumberToAssign + 1
                     spacesInGame = spacesInGame - 1
+                    lobbyGameInfo = {}
+                    lobbyGameInfo["event_type"] = "lobby_game_info"
+                    lobbyGameInfo["spaces_left"] = nextNumberToAssign
+                    self.send_to_all_player(lobbyGameInfo)
                 
             print("Players so far " + str(nextNumberToAssign - 1))
             print("Spaces in game left " + str(spacesInGame))
