@@ -10,12 +10,13 @@ class MusicGameScene extends Scene
     this.sceneManager = sceneManager;
     this.player = player;
     this.player = 1;
-    this.currentPlayNumber = -1;
+    this.currentPlayNumber = 0;
     this.numOfPeople = numOfPeople;
     this.selectedSongs = {};   
     this.currentRound = 1;
     this.timeLeft = 30;
     this.buttons = [];
+    this.choosenPlayer = false;
     
     gameNs.game.musicCountdownTimer = 3;
     this.countdownCalled = false;
@@ -142,21 +143,23 @@ class MusicGameScene extends Scene
       this.countdownCalled = true;
     }
 
-    console.log("Update is being called");
-
-    for (var i = 0; i < this.buttons.length; i++)
+    if(!this.choosenPlayer)
+    {
+      for (var i = 0; i < this.buttons.length; i++)
+      {
         if(this.currentPlayNumber != i)
         {
-          console.log("hey im being updated " + i.toString());
           this.buttons[i].update();
 
           if(this.buttons[i].getIsClicked() === true)
           {
             this.buttons[i].reset();
-            console.log("Hey you clicked me " + i.toString());
             // Hey we have selected something now hide the choice colors
+            this.choosenPlayer = true;
           }
         }
+      }
+    }
   }
 
   render(ctx)
@@ -182,15 +185,31 @@ class MusicGameScene extends Scene
       ctx.fillStyle="black";
       ctx.fillText("Time Left: " + this.timeLeft.toString(), 500, 100);
 
-      // Draw the vote text
-      ctx.font="bold 50px Georgia";
-      ctx.fillStyle="black";
-      ctx.fillText("Vote who you think", 220, 500);
-      ctx.fillText("has the same song as you", 140, 550);
+      if(!this.choosenPlayer)
+      {
+        // Draw the vote text
+        ctx.font="bold 50px Georgia";
+        ctx.fillStyle="black";
+        ctx.fillText("Vote who you think", 220, 500);
+        ctx.fillText("has the same song as you", 140, 550);
 
-      for (var i = 0; i < this.buttons.length; i++)
-        if(this.currentPlayNumber != i)
-          this.buttons[i].render(ctx); 
+        for (var i = 0; i < this.buttons.length; i++)
+          if(this.currentPlayNumber != i)
+            this.buttons[i].render(ctx); 
+      }
+      else
+      {
+        // Draw the you have voted text
+        ctx.font="bold 80px Georgia";
+        ctx.fillStyle="black";
+        ctx.fillText("You have voted", 150, 700);
+
+        ctx.font="bold 40px Georgia";
+        ctx.fillStyle="black";
+        ctx.fillText("Wait for the round to end", 200, 800);
+        ctx.fillText("Try to deceive your opponents into", 110, 850);
+        ctx.fillText("thinking you don't have their song", 120, 900);
+      }
     }
     // Display the count down timer
     else
@@ -219,5 +238,6 @@ class MusicGameScene extends Scene
     this.selectedSongs = {};   
     gameNs.game.musicCountdownTimer = 3;
     this.countdownCalled === false;
+    this.choosenPlayer = false;
   }
 }
