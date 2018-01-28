@@ -67,7 +67,7 @@ class Game
 
   handleMessage(evt)
   {
-    // Parse it twice, it's 3:12 am and i don't really give a fuck, this lanague is shit
+    // Parse it twice, it's 3:12 am and i don't really give a fuck, this language is shit
     var eventJSON = JSON.stringify(evt.data)
     var eventJSON_2 = JSON.parse(eventJSON)
     var eventDict = JSON.parse(eventJSON_2)

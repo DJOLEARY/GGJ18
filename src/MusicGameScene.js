@@ -18,7 +18,9 @@ class MusicGameScene extends Scene
     this.choosenPlayer = false;
     
     gameNs.game.musicCountdownTimer = 3;
+    gameNs.game.timeLeft = 30;
     this.countdownCalled = false;
+    this.timerCalled = false;
 
     this.colours = {1:"#00FFFF", 2:"#0000FF", 3:"#A52A2A", 4:"#7FFF00", 
                     5:"#006400", 6:"#FF8C00", 7:"#9932CC", 8:"#DCDCDC"};
@@ -139,8 +141,19 @@ class MusicGameScene extends Scene
     if (this.countdownCalled === false)
     {
       this.countdown();
-      this.countdownTillEnd();
       this.countdownCalled = true;
+    }
+    
+    if(this.timerCalled === false && gameNs.game.musicCountdownTimer === 0)
+    {
+      this.countdownTillEnd();
+      this.timerCalled = true;
+    }
+    
+    if (gameNs.game.timeLeft === 0)
+    {
+      // @note(darren): Going to change the scene into the leaderboard, get whole game working for 1 round first
+      // then worry about rounds.
     }
 
     if(!this.choosenPlayer)
@@ -166,7 +179,7 @@ class MusicGameScene extends Scene
   {
     document.body.style.backgroundColor = "grey";
 
-    gameNs.game.musicCountdownTimer = 0;
+    //gameNs.game.musicCountdownTimer = 0;
 
     // Finished counting down
     if (gameNs.game.musicCountdownTimer === 0)
@@ -183,7 +196,7 @@ class MusicGameScene extends Scene
       // Time display
       ctx.font="bold 50px Georgia";
       ctx.fillStyle="black";
-      ctx.fillText("Time Left: " + this.timeLeft.toString(), 500, 100);
+      ctx.fillText("Time Left: " + gameNs.game.timeLeft.toString(), 500, 100);
 
       if(!this.choosenPlayer)
       {
@@ -238,9 +251,9 @@ class MusicGameScene extends Scene
     // Update the count down every 1 second
     var x = setInterval(function() 
     {
-      if (gameNs.game.musicCountdownTimer > 0)
+      if (gameNs.game.timeLeft  > 0)
       {
-        gameNs.game.musicCountdownTimer--;
+        gameNs.game.timeLeft --;
       }
     }, 1000);
   }
