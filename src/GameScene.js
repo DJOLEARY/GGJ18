@@ -12,13 +12,9 @@ class GameScene extends Scene
     this.timeLeft = 30;
     this.buttons = [];
     this.choosenPlayer = false;
-    this.init = false;
-
-    this.playerPairs  = {};
 
     gameNs.game.countdownTimer = 3;
     gameNs.game.timeLeft = 30;
-    gameNs.game.assignedGameNum = 1;  // Set this to 1 for testing, should be 0.
 
     this.countdownCalled = false;
     this.timerCalled = false;
@@ -128,7 +124,7 @@ class GameScene extends Scene
   
 
     this.buttons = [this.colorButtonOne, this.colorButtonTwo, this.colorButtonThree, this.colorButtonFour,
-                this.colorButtonFive, this.colorButtonSix, this.colorButtonSeven, this.colorButtonEight];
+                    this.colorButtonFive, this.colorButtonSix, this.colorButtonSeven, this.colorButtonEight];
   }
 
   update(deltaTime)
@@ -173,36 +169,6 @@ class GameScene extends Scene
           }
         }
       }
-    }
-
-    if (gameNs.game.playerNumber === 1 && this.init === false)
-    {
-      this.init === true;
-      gameNs.game.numbersSelected = [];
-      var i = 0;
-
-      while (gameNs.game.numbersSelected < 4)
-      {
-        var randomNum = Math.floor(Math.random * 25) + 1;
-        if (gameNs.game.numbersSelected.indexOf(randomNum) === -1)
-        {
-          gameNs.game.numbersSelected.push(randomNum);
-          i++;
-        }
-      }
-
-      var players = [1, 2, 3, 4, 5, 6, 7, 8];
-
-      players = this.shuffle(players);
-
-      this.playerPairs[players[0]] = gameNs.game.numbersSelected[0];
-      this.playerPairs[players[1]] = gameNs.game.numbersSelected[0];
-      this.playerPairs[players[2]] = gameNs.game.numbersSelected[1];
-      this.playerPairs[players[3]] = gameNs.game.numbersSelected[1];
-      this.playerPairs[players[4]] = gameNs.game.numbersSelected[2];
-      this.playerPairs[players[5]] = gameNs.game.numbersSelected[2];
-      this.playerPairs[players[6]] = gameNs.game.numbersSelected[3];
-      this.playerPairs[players[7]] = gameNs.game.numbersSelected[3];
     }
   }
 
@@ -339,25 +305,5 @@ class GameScene extends Scene
     gameNs.game.countdownTimer = 3;
     this.countdownCalled === false;
     this.choosenPlayer = false;
-  }
-
-  shuffle(array) 
-  {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) 
-    {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
   }
 }
