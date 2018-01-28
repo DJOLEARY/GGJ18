@@ -60,6 +60,7 @@ class Game
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.goToScene("Menu");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
+    gameNs.game.playerNumber = -1;
   }
 
   handleMessage(evt)
@@ -71,13 +72,14 @@ class Game
     console.log(eventDict)
     if(eventDict["event_type"] == "join_game_info")
     {
-      gameNs.game.lobbyScene.numOfPlayersConnected = eventDict["players_number"];
+      // @note(darren): Took this out of lobby screen will need the players number somewhere else. Just store global?
+      gameNs.game.playerNumber =  eventDict["players_number"];
       console.log("Hello i have the number: " + eventDict["players_number"]);
     }
 
     if(eventDict["event_type"] == "lobby_game_info")
     {
-      gameNs.game.lobbyScene.numOfPlayersNeeded = eventDict["spaces_left"];
+      gameNs.game.lobbyScene.numOfSpacesLeft = eventDict["spaces_left"];
       console.log("Hello there is this many space left: " + eventDict["spaces_left"]);
     }
   }

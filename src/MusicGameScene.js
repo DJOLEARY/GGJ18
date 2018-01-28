@@ -147,7 +147,7 @@ class MusicGameScene extends Scene
     {
       for (var i = 0; i < this.buttons.length; i++)
       {
-        if(this.currentPlayNumber != i)
+        if(gameNs.game.playerNumber != i)
         {
           this.buttons[i].update();
 
@@ -172,7 +172,7 @@ class MusicGameScene extends Scene
     if (gameNs.game.musicCountdownTimer === 0)
     {
       ctx.beginPath();
-      ctx.fillStyle = this.colours[this.player];
+      ctx.fillStyle = this.colours[gameNs.game.playerNumber];
       ctx.fillRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
 
       // Round display
@@ -194,7 +194,7 @@ class MusicGameScene extends Scene
         ctx.fillText("has the same song as you", 140, 550);
 
         for (var i = 0; i < this.buttons.length; i++)
-          if(this.currentPlayNumber != i)
+          if(this.gameNs.game.playerNumber != i)
             this.buttons[i].render(ctx); 
       }
       else

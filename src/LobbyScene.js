@@ -6,17 +6,16 @@ class LobbyScene extends Scene
     this.touch = touch;
     this.sceneManager = sceneManager;
 
-    this.numOfPlayersNeeded = 8;
-    this.numOfPlayersConnected = 0;
+    this.numOfSpacesLeft = 8;
   }
 
   update(deltaTime)
   {
-    if (this.numOfPlayersNeeded === 0 && gameNs.game.gamemode === "music")
+    if (this.numOfSpacesLeft === 0 && gameNs.game.gamemode === "music")
     {
       this.sceneManager.goToScene("MusicGame");
     }
-    else if (this.numOfPlayersNeeded === 0 && gameNs.game.gamemode === "charades")
+    else if (this.numOfSpacesLeft === 0 && gameNs.game.gamemode === "charades")
     {
       this.sceneManager.goToScene("CharadesGame");
     }
@@ -37,7 +36,7 @@ class LobbyScene extends Scene
     // Number of players left to connect
     ctx.font="bold 180px Georgia";
     ctx.fillStyle="#680505";
-    ctx.fillText(this.numOfPlayersNeeded.toString(), 420, 650);
+    ctx.fillText(this.numOfSpacesLeft.toString(), 420, 650);
 
     document.body.style.backgroundColor = "grey";
   }
