@@ -147,7 +147,7 @@ class MusicGameScene extends Scene
     {
       for (var i = 0; i < this.buttons.length; i++)
       {
-        if(gameNs.game.playerNumber != i)
+        if(gameNs.game.playerNumber - 1 != i)
         {
           this.buttons[i].update();
 
@@ -194,7 +194,7 @@ class MusicGameScene extends Scene
         ctx.fillText("has the same song as you", 140, 550);
 
         for (var i = 0; i < this.buttons.length; i++)
-          if(this.gameNs.game.playerNumber != i)
+          if(gameNs.game.playerNumber - 1 != i)
             this.buttons[i].render(ctx); 
       }
       else
