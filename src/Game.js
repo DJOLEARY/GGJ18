@@ -27,11 +27,11 @@ class Game
   init()
   { 
     // Dj's Ip
-    //gameNs.game.ws = new WebSocket("ws://149.153.106.122:8080/wstest");
+    gameNs.game.ws = new WebSocket("ws://149.153.106.122:8080/wstest");
     // Darren's Ip college
     //gameNs.game.ws = new WebSocket("ws://149.153.106.121:8080/wstest");
     // Darren's Ip home
-    gameNs.game.ws = new WebSocket("ws://192.168.1.8:8080/wstest");
+    //gameNs.game.ws = new WebSocket("ws://192.168.1.8:8080/wstest");
 
     //  Initialise the canvas
     gameNs.game.canvas = document.createElement("canvas");
@@ -53,13 +53,14 @@ class Game
     gameNs.game.sceneManager = new SceneManager(gameNs.game.ctx, gameNs.game.canvas);
     gameNs.game.sceneManager.addScene(new MenuScene("Menu", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.sceneManager.addScene(new GameSelectScene("GameSelect", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.addScene(new MusicGameScene("MusicGame", gameNs.game.touch, gameNs.game.sceneManager, gameNs.game.soundManager));
-    gameNs.game.sceneManager.addScene(new CharadesGameScene("CharadesGame", gameNs.game.touch, gameNs.game.sceneManager));
     gameNs.game.lobbyScene = new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager)
     gameNs.game.sceneManager.addScene(gameNs.game.lobbyScene);
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.goToScene("GameSelect");
+    gameNs.game.sceneManager.addScene(new GameScene("Game", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.addScene(new LeaderboardScene("Leaderboard", gameNs.game.touch, gameNs.game.sceneManager));
+    gameNs.game.sceneManager.goToScene("Menu");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
+
     // @todo(darren): This is for testing, playernum should be -1 and remove numofspaces
     gameNs.game.playerNumber = 0;
     gameNs.game.lobbyScene.numOfSpacesLeft = 0
@@ -81,7 +82,7 @@ class Game
 
     if(eventDict["event_type"] == "lobby_game_info")
     {
-      gameNs.game.lobbyScene.numOfSpacesLeft = 0;//eventDict["spaces_left"];
+      gameNs.game.lobbyScene.numOfSpacesLeft = eventDict["spaces_left"];
       console.log("Hello there is this many space left: " + eventDict["spaces_left"]);
     }
   }

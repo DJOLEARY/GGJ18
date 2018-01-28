@@ -6,7 +6,6 @@ class JsonLoader
   constructor()
   {
     this.loaded = false;
-    this.numOfSounds = 12;
   }
 
   loadJSON(url)
@@ -26,7 +25,8 @@ class JsonLoader
       gameNs.game.backgroundImage.src = assets.images[0].path;
 
       //  Sounds.
-      for (var i = 0; i < this.numOfSounds; i++)
+      var numOfSounds = 12;
+      for (var i = 0; i < numOfSounds; i++)
       {
         gameNs.game.soundManager.loadSoundFile(assets.music[i].name, assets.music[i].path);
       }
