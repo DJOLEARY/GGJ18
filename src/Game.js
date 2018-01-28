@@ -28,8 +28,10 @@ class Game
   { 
     // Dj's Ip
     //gameNs.game.ws = new WebSocket("ws://149.153.106.122:8080/wstest");
-    // Darren's Ip
-    gameNs.game.ws = new WebSocket("ws://149.153.106.121:8080/wstest");
+    // Darren's Ip college
+    //gameNs.game.ws = new WebSocket("ws://149.153.106.121:8080/wstest");
+    // Darren's Ip home
+    gameNs.game.ws = new WebSocket("ws://192.168.1.8:8080/wstest");
 
     //  Initialise the canvas
     gameNs.game.canvas = document.createElement("canvas");
@@ -56,7 +58,7 @@ class Game
     gameNs.game.lobbyScene = new LobbyScene("Lobby", gameNs.game.touch, gameNs.game.sceneManager)
     gameNs.game.sceneManager.addScene(gameNs.game.lobbyScene);
     gameNs.game.sceneManager.addScene(new CreditsScene("Credits", gameNs.game.touch, gameNs.game.sceneManager));
-    gameNs.game.sceneManager.goToScene("Menu");
+    gameNs.game.sceneManager.goToScene("MusicGame");
     gameNs.game.sceneManager.renderCurrentScene(gameNs.game.ctx);
   }
 
